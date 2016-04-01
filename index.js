@@ -11,10 +11,10 @@ var exec = require('child_process').exec;
  */
 
 var bin = new BinWrapper({ global: false })
-	.src('https://raw.github.com/mastern2k3/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/osx/pandoc', 'darwin')
-	.src('https://raw.github.com/mastern2k3/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/linux/x86/pandoc', 'linux', 'x86')
-	.src('https://raw.github.com/mastern2k3/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/linux/x64/pandoc', 'linux', 'x64')
-	.src('https://raw.github.com/mastern2k3/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/win/pandoc.exe', 'win32')
+	.src('https://raw.github.com/iilab/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/osx/pandoc', 'darwin')
+	.src('https://raw.github.com/iilab/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/linux/x86/pandoc', 'linux', 'x86')
+	.src('https://raw.github.com/iilab/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/linux/x64/pandoc', 'linux', 'x64')
+	.src('https://raw.github.com/iilab/pandoc-bin/2e1f2d90fd600f9db8f06aea3c6d28da974c2813/vendor/win/pandoc.exe', 'win32')
 	.dest(path.join(__dirname, 'vendor'))
 	.use(process.platform === 'win32' ? 'pandoc.exe' : 'pandoc');
 
@@ -27,6 +27,7 @@ fs.exists(bin.use(), function (exists) {
 		console.log(chalk.yellow('⧗ Downloading Pandoc (~20-50MB depending on OS). This may take a minute or so.'));
 		bin.run(['--version'], function (err) {
 			if (err) {
+				console.log(err.message)
 				console.log(chalk.red('✗ pre-build test failed'));
 				console.log(chalk.red("⚠ I don't have a working binary for your system. If you believe I am incorrect about this or if you want to request a binary for your system, please file an issue on this module's github page. ⚠"));
 				console.log(chalk.yellow('As an alternative to this module, please refer to http://johnmacfarlane.net/pandoc/installing.html for installing Pandoc on your system.'));
